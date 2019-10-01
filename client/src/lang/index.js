@@ -1,0 +1,1 @@
+export enGB from './enGB'
