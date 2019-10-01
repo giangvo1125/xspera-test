@@ -5,10 +5,12 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import {port} from '../config'
 import {bootstrap} from './services'
+import cors from 'cors'
 
 const app = express()
 
 app.use(logger('dev'))
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

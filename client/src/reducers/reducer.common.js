@@ -1,9 +1,16 @@
+import {
+	LOADING, 
+} from '../types'
+
 const initState = {
-    data: {}
+    loading: false, 
 }
 
 function reducer(state = initState, action) {
     switch (action.type) {
+        case LOADING:
+            return {...state, ...action.payload}
+        break
         default:
             return state
     }

@@ -22,7 +22,7 @@ const getProduct = (req, res, next) => {
 				include:[
 					{
 						model: model.users,
-						required: true, 
+						required: false, 
 						attributes: ['username']
 					}
 				], 
@@ -30,7 +30,8 @@ const getProduct = (req, res, next) => {
 			},
 		], 
 		attributes: ['uuid', 'name', 'description' ], 
-		subQuery: false, 
+		// subQuery: false, 
+		distinct: true, 
 	}
 	productService.getProduct(condition)
 	.then(result => {

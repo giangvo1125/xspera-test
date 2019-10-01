@@ -12,7 +12,7 @@ import DashBoardComponent from './components/dashboard'
 const routes = (
   	<Route component={(ContentComponent)}>
   		<Route path='/' component={DashBoardComponent}/>
-    	{/*<Route path='*' exact={true} component={RequireRoute(LoginComponent)} />*/}
+    	<Redirect from='*' to='/' />
   	</Route>
 )
 

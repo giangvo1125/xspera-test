@@ -1,5 +1,5 @@
 import { HttpClient } from './http-client'
 
-export const login = data => {
-    return HttpClient.withAPI().get(`/product`)
+export const getProduct = (params = '') => {
+    return HttpClient.withAPI().get(`/product?${params}`)
 }

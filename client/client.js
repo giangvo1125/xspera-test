@@ -7,12 +7,15 @@ import useScroll from 'scroll-behavior/lib/useStandardScroll'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { configureStore } from './src/store'
 import routes from './src/routes'
+import { getParamFilterProduct } from './src/actions/action.product'
 
 let state = window.__initialState__ || undefined
 const store = configureStore(browserHistory, state)
 const createScrollHistory = useScroll(createBrowserHistory)
 const appHistory = useRouterHistory(createScrollHistory)()
 const history = syncHistoryWithStore(appHistory, store)
+
+store.dispatch(getParamFilterProduct())
 
 render(
     <Provider store={store}>
