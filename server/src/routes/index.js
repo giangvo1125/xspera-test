@@ -1,8 +1,10 @@
 import _ from 'lodash'
 import product from './route.product'
+import user from './route.user'
 
 module.exports = function(app) {
 	var routes = {}
 	_.extend(routes, product(app))
+	_.extend(routes, user(app))
 	return routes
 }

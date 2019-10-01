@@ -1,7 +1,8 @@
 import model from '../models'
-import { product } from '../services'
+import { product as productService, user as userService, common } from '../services'
 
-const get = (req, res, next) => {
+//function get product by conditions
+const getProduct = (req, res, next) => {
 	let {brandId, limit} = req.query
 	var condition = {
 		order: [
@@ -31,15 +32,31 @@ const get = (req, res, next) => {
 		attributes: ['uuid', 'name', 'description' ], 
 		subQuery: false, 
 	}
-	product.get(condition)
+	productService.getProduct(condition)
 	.then(result => {
 		res.status(200).send(result)
 	}, err => {
-		console.log('err ',err)
-		res.status(400).send('error')
+		common.errorRes(res, err)
+	})
+}
+
+//function create review for product
+const addReview = (req, res, next) => {
+	var data = req.body
+	userService.checkUser(data.userUID, 'Customer')
+	.then(user => {
+		return productService.addReview(data)
+	}, err => {
+		throw err
+	})
+	.then(result => {
+		res.status(200).send({msg: 'create successfully'})
+	}, err => {
+		common.errorRes(res, err)
 	})
 }
 
 module.exports = {
-	get, 
+	getProduct, 
+	addReview, 
 }

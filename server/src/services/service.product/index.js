@@ -1,5 +1,9 @@
-import get from './product.get'
+import getProduct from './product.get'
+import addReview from './product.review.add'
+import validateReview from './product.review.validate'
 
 module.exports = {
-	get, 
+	getProduct, 
+	addReview, 
+	validateReview, 
 }

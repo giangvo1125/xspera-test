@@ -1,8 +1,7 @@
-import db from '../../models'
-const sequelize = db.sequelize
+import model from '../../models'
 
 export default (condition = {}) => new Promise((resolve, reject) => {
-	db.products.findAndCountAll(condition)
+	model.products.findAndCountAll(condition)
 	.then(products => {
 		resolve(products)
 	}, err => {
