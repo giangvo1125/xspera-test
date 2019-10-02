@@ -3,12 +3,14 @@ import { product as productService, user as userService, common } from '../servi
 
 //function get product by conditions
 const getProduct = (req, res, next) => {
-	let {brandId, limit} = req.query
+	let {brandId, limit, offset} = req.query
+	console.log('offset ',offset)
 	var condition = {
 		order: [
 			['id', 'DESC']
 		], 
-		limit: limit ? limit : 10, 
+		limit: limit && parseInt(limit, 10) ? parseInt(limit) : 10, 
+		offset: offset && parseInt(offset, 10) ? parseInt(offset) : 0, 
 		include: [
 			{
 				model: model.brands, 
@@ -29,7 +31,7 @@ const getProduct = (req, res, next) => {
 				required: false, 
 			},
 		], 
-		attributes: ['uuid', 'name', 'description' ], 
+		attributes: ['uuid', 'name', 'description', 'rating' ], 
 		// subQuery: false, 
 		distinct: true, 
 	}
@@ -37,6 +39,7 @@ const getProduct = (req, res, next) => {
 	.then(result => {
 		res.status(200).send(result)
 	}, err => {
+		console.log('err ',err)
 		common.errorRes(res, err)
 	})
 }
