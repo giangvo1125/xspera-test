@@ -9,4 +9,4 @@ To run the examples in your development environment:
 3. Access sql, import file database.sql to DB.
 3. From the root of your client and server repository, start the development server with
    `npm start`.
-4. Point your browser to <http://0.0.0.0:2023/>
+4. Point your browser to <http://localhost:2023/>
