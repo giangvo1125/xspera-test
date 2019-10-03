@@ -4,9 +4,14 @@ class RatingStarComponent extends Component {
 	constructor(props, context) {
 		super(props)        
 	}
-
+	onClickRating(position) {
+		let {onClick} = this.props
+		if(onClick && typeof onClick === 'function') {
+			onClick(position + 1)
+		}
+	}
 	render() {
-		let { rating, limit, keyProps } = this.props,
+		let {rating, limit, keyProps} = this.props,
 			elem = []
 
 		for(var i = 0; i < limit; i++) {
@@ -14,6 +19,7 @@ class RatingStarComponent extends Component {
 			elem.push(
 				<li 
 					key={`rating-star-${keyProps}-${i}`} 
+					onClick={this.onClickRating.bind(this, i)}
 					className={`star ${active}`}>★</li>
 			)
 		}

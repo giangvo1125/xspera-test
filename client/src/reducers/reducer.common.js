@@ -2,8 +2,10 @@ import {
 	LOADING, 
 } from '../types'
 
+import { common } from './initialState'
+
 const initState = {
-    loading: false, 
+    ...common, 
 }
 
 function reducer(state = initState, action) {

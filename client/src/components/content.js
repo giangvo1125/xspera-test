@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import LoadingComponent from './common/loading'
+
 class ContentComponent extends Component {
 	constructor(props, context) {
 		super(props)
@@ -10,6 +12,7 @@ class ContentComponent extends Component {
 	render() {
 		return (
 			<div>
+				<LoadingComponent/>
 				{this.props.children}
 			</div>
 		)

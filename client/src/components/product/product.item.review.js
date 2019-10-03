@@ -73,8 +73,8 @@ ProductItemReviewComponent.contextTypes = {
 
 const mapStateToProps = state => {
 	return {
-		showDefaultComment: selectors.productDefaultCommentSelector(state), 
-		ratingMax: selectors.productRatingMaxSelector(state), 
+		showDefaultComment: selectors.defaultCommentSelector(state), 
+		ratingMax: selectors.ratingMaxSelector(state), 
 		language: selectors.languageSelector(state).get('product'), 
 	}
 }

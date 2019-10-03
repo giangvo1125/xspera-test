@@ -1,12 +1,16 @@
 import model from '../../models'
 
 export default ({email}, type = 'Customer') => new Promise((resolve, reject) => {
+	let findUser
 	model.users.findOne({
 		where: {email}
 	})
 	.then(user => {
 		if(user) {
-			return user
+			findUser = user
+			return model.user_type.findOne({
+				where: {id: user.type_id}
+			})
 		}
 		else {
 			return model.user_type.findOne({
@@ -18,11 +22,16 @@ export default ({email}, type = 'Customer') => new Promise((resolve, reject) => 
 	})
 	.then(user_type => {
 		if(user_type) {
-			return model.users.create({
-				username: email, 
-				email: email, 
-				type_id: user_type.id, 
-			})
+			if(!findUser) {
+				return model.users.create({
+					username: email, 
+					email: email, 
+					type_id: user_type.id, 
+				})
+			}
+			else {
+				return findUser
+			}
 		}
 		else {
 			throw 'not found user type'

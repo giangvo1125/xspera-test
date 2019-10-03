@@ -2,19 +2,13 @@ import {
 	GET_PARAM_FILTER_PRODUCT, 
     GET_PRODUCT, 
     UPDATE_PRODUCT_PAGINATION, 
+    RESET_DATA_PRODUCT, 
 } from '../types'
 
+import { product } from './initialState'
+
 const initState = {
-    list: immutable.fromJS([]), 
-    brandId: '', 
-    ratingMax: 10, 
-    showDefaultComment: 1, 
-    pagination: immutable.fromJS({
-        startPage: 1, 
-        totalPages: 1, 
-        visiblePages: 5, 
-        limit: 10, 
-    }), 
+    ...product, 
 }
 
 function reducer(state = initState, action) {
@@ -27,6 +21,9 @@ function reducer(state = initState, action) {
         break
         case UPDATE_PRODUCT_PAGINATION:
             return {...state, ...action.payload}
+        break
+        case RESET_DATA_PRODUCT:
+            return {...state, ...product}
         break
         default:
             return state

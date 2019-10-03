@@ -4,14 +4,19 @@ import { bindActionCreators } from 'redux'
 
 import ProductItemComponent from './product.item'
 
+import {resetDataProduct} from '../../actions/action.product'
+
 class ProductComponent extends Component {
 	constructor(props, context) {
 		super(props)
         context.router
 	}
+	componentWillUnmount() {
+		this.props.resetDataProduct()
+	}
 
 	render() {
-		let {list} = this.props, 
+		let {list, language} = this.props, 
 			elem = list.map(item => {
 				let key = item.get('uuid')
 				return (
@@ -21,7 +26,11 @@ class ProductComponent extends Component {
 
 		return (
 			<div className="products">
-				{elem}
+				{
+					elem && elem.size > 0 ? 
+					elem : 
+					<div className="no-product">{language.get('not_found')}</div>
+				}
 			</div>
 		)
 	}
@@ -34,7 +43,12 @@ ProductComponent.contextTypes = {
 const mapStateToProps = state => {
 	return {
 		list: selectors.productDataSelector(state), 
+		language: selectors.languageSelector(state).get('product'), 
 	}
 }
 
-export default connect(mapStateToProps)(ProductComponent)
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+	resetDataProduct, 
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductComponent)

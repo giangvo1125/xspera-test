@@ -2,6 +2,7 @@ import {
 	GET_PARAM_FILTER_PRODUCT, 
 	GET_PRODUCT, 
 	UPDATE_PRODUCT_PAGINATION, 
+	RESET_DATA_PRODUCT, 
 } from '../types'
 
 import { loading } from './action.common'
@@ -17,16 +18,16 @@ export const getParamFilterProduct = () => (dispatch, getState) => {
 }
 
 export const getProduct = () => (dispatch, getState) => new Promise((resolve, reject) => {
-	let {brandId, pagination} = getState().product,
+	let {brandId, pagination} = selectors.productSelector(getState()),
 		limit = pagination.get('limit')
 	dispatch(loading(true))
 	apiService.getProduct(`limit=${limit}&offset=${(pagination.get('startPage') - 1) * limit}&brandId=${brandId}`)
 	.then(response => {
 		dispatch(loading(false))
-		let { status, data } = response
+		let {status, data} = response
 		if(status == 200) {
-			let { count, rows } = data,
-				totalPages = Math.trunc(count/limit) + (count%limit > 0 ? 1 : 0)
+			let {count, rows} = data,
+				totalPages = count > 0 ? Math.trunc(count/limit) + (count%limit > 0 ? 1 : 0) : 1
 			pagination = pagination.set('totalPages', totalPages)
 			dispatch({
 				type: GET_PRODUCT, 
@@ -41,7 +42,7 @@ export const getProduct = () => (dispatch, getState) => new Promise((resolve, re
 })
 
 export const updateProductPagination = (pageNumber = 0) => (dispatch, getState) => new Promise((resolve, reject) => {
-	let {pagination} = getState().product
+	let {pagination} = selectors.productSelector(getState())
 	pagination = pagination.set('startPage', pageNumber)
 	dispatch({
 		type: UPDATE_PRODUCT_PAGINATION, 
@@ -49,3 +50,11 @@ export const updateProductPagination = (pageNumber = 0) => (dispatch, getState) 
 	})
 	resolve(UPDATE_PRODUCT_PAGINATION)
 })
+
+export const resetDataProduct = () => dispatch => new Promise((resolve, reject) => {
+	dispatch({
+		type: RESET_DATA_PRODUCT
+	})
+	resolve(RESET_DATA_PRODUCT)
+})
+

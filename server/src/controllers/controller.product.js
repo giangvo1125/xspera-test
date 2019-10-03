@@ -3,11 +3,11 @@ import { product as productService, user as userService, common } from '../servi
 
 //function get product by conditions
 const getProduct = (req, res, next) => {
-	let {brandId, limit, offset} = req.query
-	console.log('offset ',offset)
+	let {brandId, limit, offset, productId} = req.query
 	var condition = {
 		order: [
-			['id', 'DESC']
+			['id', 'DESC'], 
+			[model.reviews, 'id', 'DESC'], 
 		], 
 		limit: limit && parseInt(limit, 10) ? parseInt(limit) : 10, 
 		offset: offset && parseInt(offset, 10) ? parseInt(offset) : 0, 
@@ -16,7 +16,7 @@ const getProduct = (req, res, next) => {
 				model: model.brands, 
 				attributes: ['name'], 
 				required: true, 
-				where: brandId ? {uuid: brandId} : {}, 
+				where: brandId ? {id: brandId} : {}, 
 			}, 
 			{
 				model: model.reviews, 
@@ -34,6 +34,7 @@ const getProduct = (req, res, next) => {
 		attributes: ['uuid', 'name', 'description', 'rating' ], 
 		// subQuery: false, 
 		distinct: true, 
+		where: productId ? {uuid: productId} : {}
 	}
 	productService.getProduct(condition)
 	.then(result => {
@@ -60,7 +61,18 @@ const addReview = (req, res, next) => {
 	})
 }
 
+const createProduct = (req, res, next) => {
+	var data = req.body
+	productService.createProduct(data)
+	.then(result => {
+		res.status(200).send({msg: 'create successfully'})
+	}, err => {
+		common.errorRes(res, err)
+	})
+}
+
 module.exports = {
 	getProduct, 
 	addReview, 
+	createProduct, 
 }

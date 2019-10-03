@@ -9,7 +9,9 @@ class ProductItemComponent extends Component {
 		super(props)
         context.router
 	}
-
+	onClickReview(data) {
+		this.context.router.push(`/products/review?productId=${data.get('uuid')}`)
+	}
 	render() {
 		let {data, ratingMax, language} = this.props
 
@@ -26,7 +28,9 @@ class ProductItemComponent extends Component {
 						/>
 					</div>
 					<div className="desc">{data.get('description')}</div>
-					<a className="review">{language.get('add_review')}</a>
+					<a className="review" onClick={this.onClickReview.bind(this, data)}>
+						{language.get('add_review')}
+					</a>
 					<ProductItemReviewComponent 
 						data={data.get('reviews')}
 					/>
@@ -42,7 +46,7 @@ ProductItemComponent.contextTypes = {
 
 const mapStateToProps = state => {
 	return {
-		ratingMax: selectors.productRatingMaxSelector(state), 
+		ratingMax: selectors.ratingMaxSelector(state), 
 		language: selectors.languageSelector(state).get('product'), 
 	}
 }

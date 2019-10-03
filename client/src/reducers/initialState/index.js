@@ -1,1 +1,3 @@
-// export data from './data'
+export product from './product'
+export review from './review'
+export common from './common'
