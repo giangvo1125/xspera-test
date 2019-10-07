@@ -21,7 +21,9 @@ const Language = {
 		email_err: 'This field must be email format',
 		comment_err: 'This field must be contains string and number', 
 		required: 'Please input correctly information.', 
-		create_success: 'Create Successfully'
+		create_success: 'Create Successfully', 
+		not_found_product: 'Not Found Product', 
+		error: 'Something went wrong!!!', 
 	}	
 }
 

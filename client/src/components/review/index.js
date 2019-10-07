@@ -12,6 +12,13 @@ class ReviewComponent extends Component {
 	}
 	componentDidMount() {
 		this.props.checkProductReview()
+		.then(() => {
+
+		}, err => {
+			let {msgLanguage} = this.props, 
+				message = ['error', 'not_found_product'].indexOf(err) == -1 ? err : msgLanguage.get(err)
+			toastr.error(message)
+		})
 	}
 	componentWillUnmount() {
 		this.props.resetDataReview()
@@ -34,6 +41,7 @@ ReviewComponent.contextTypes = {
 const mapStateToProps = state => {
 	return {
 		language: selectors.languageSelector(state).getIn(['product', 'review']), 
+		msgLanguage: selectors.languageSelector(state).get('msg'), 
 	}
 }
 

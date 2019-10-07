@@ -84,7 +84,8 @@ class ReviewFormComponent extends Component {
 				toastr.success(msgLanguage.get('create_success'))
 				this.context.router.push('/')
 			}, err => {
-				toastr.error(msgLanguage.get(err))
+				let message = ['error'].indexOf(err) == -1 ? err : msgLanguage.get(err)
+				toastr.error(message)
 			})
 		}
 	}

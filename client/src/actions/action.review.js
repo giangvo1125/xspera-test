@@ -28,16 +28,18 @@ export const checkProductReview = () => (dispatch, getState) => new Promise((res
 					resolve(CHECK_PRODUCT_REVIEW)
 				}
 				else {
-					reject(CHECK_PRODUCT_REVIEW)
+					reject('not_found_product')
 				}
 			}
 		}, err => {
 			dispatch(loading(false))
-			reject(CHECK_PRODUCT_REVIEW)
+			let {data} = err.response,
+				msg = data && data.msg ? data.msg : 'error'
+			reject(msg)
 		})
 	}
 	else {
-		reject(CHECK_PRODUCT_REVIEW)
+		reject('error')
 	}
 })
 
@@ -97,7 +99,9 @@ export const onSaveReview = () => (dispatch, getState) => new Promise((resolve, 
 			}
 		}, err => {
 			dispatch(loading(false))
-			reject('error')
+			let {data} = err.response,
+				msg = data && data.msg ? data.msg : 'error'
+			reject(msg)
 		})
 	}
 
