@@ -40,8 +40,7 @@ const getProduct = (req, res, next) => {
 	.then(result => {
 		res.status(200).send(result)
 	}, err => {
-		console.log('err ',err)
-		common.errorRes(res, err)
+		next(err)
 	})
 }
 
@@ -57,7 +56,7 @@ const addReview = (req, res, next) => {
 	.then(result => {
 		res.status(200).send({msg: 'create successfully'})
 	}, err => {
-		common.errorRes(res, err)
+		next(err)
 	})
 }
 
@@ -67,7 +66,7 @@ const createProduct = (req, res, next) => {
 	.then(result => {
 		res.status(200).send({msg: 'create successfully'})
 	}, err => {
-		common.errorRes(res, err)
+		next(err)
 	})
 }
 

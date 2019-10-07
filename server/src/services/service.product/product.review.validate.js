@@ -5,13 +5,13 @@ export default ({rating, comment}) => new Promise((resolve, reject) => {
 	else {
 		switch(true) {
 			case !Number.isInteger(rating):
-				reject('rating must be integer')
+				reject('rating_must_be_integer')
 			break
 			case rating < 0 || rating > 10:
-				reject('rating must be between 0 to 10')
+				reject('rating_must_be_between_0_to_10')
 			break
 			case typeof comment != 'string':
-				reject('comment must be string')
+				reject('comment_must_be_string')
 			break
 			default:
 				resolve()

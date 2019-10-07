@@ -20,7 +20,7 @@ export default ({productUID, userUID, rating, comment}) => new Promise((resolve,
 				return model.products.findOne({where: {uuid: productUID}, transaction: t})
 			}
 			else {
-				throw 'not found user'
+				throw 'not_found_user'
 			}
 		}, err => {
 			throw err
@@ -31,7 +31,7 @@ export default ({productUID, userUID, rating, comment}) => new Promise((resolve,
 				return product.getReviews({transaction: t})
 			}
 			else {
-				throw 'not found product'
+				throw 'not_found_product'
 			}
 		}, err => {
 			throw err

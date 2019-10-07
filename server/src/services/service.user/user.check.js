@@ -16,7 +16,7 @@ export default (uuid = '', type = '') => new Promise((resolve, reject) => {
 						resolve(user)
 					}
 					else {
-						reject('not match type user')
+						reject('not_match_type_user')
 					}
 				}
 				else {
@@ -24,7 +24,7 @@ export default (uuid = '', type = '') => new Promise((resolve, reject) => {
 				}
 			}
 			else {
-				reject('not found user')
+				reject('not_found_user')
 			}
 			
 		}, err => {
@@ -32,7 +32,7 @@ export default (uuid = '', type = '') => new Promise((resolve, reject) => {
 		})
 	}
 	else {
-		reject('not found id')
+		reject('not_found_id')
 	}
 	
 })

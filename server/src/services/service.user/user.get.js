@@ -34,7 +34,7 @@ export default ({email}, type = 'Customer') => new Promise((resolve, reject) => 
 			}
 		}
 		else {
-			throw 'not found user type'
+			throw 'not_found_user_type'
 		}
 	}, err => {
 		throw err

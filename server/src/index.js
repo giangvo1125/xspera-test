@@ -4,7 +4,7 @@ import logger from 'morgan'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import {port} from '../config'
-import {bootstrap} from './services'
+import {bootstrap, common} from './services'
 import cors from 'cors'
 
 const app = express()
@@ -18,6 +18,11 @@ app.use(cookieParser())
 
 require('./routes')(app)
 bootstrap(app)
+
+//handle error response
+app.use((err, req, res, next) => {
+	common.errorRes(res, err)   
+})
 
 app.set('port', port)
 

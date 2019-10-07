@@ -21,7 +21,7 @@ export default (body = {}) => new Promise((resolve, reject) => {
 			})
 			.then(product => {
 				if(product) {
-					throw 'product existed'
+					throw 'product_existed'
 				}
 				else {
 					return model.products.create({...body})
@@ -37,7 +37,7 @@ export default (body = {}) => new Promise((resolve, reject) => {
 		}
 	}
 	else {
-		reject('not found params')
+		reject('not_found_params')
 	}
 	
 })

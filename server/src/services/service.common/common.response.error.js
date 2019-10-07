@@ -1,6 +1,8 @@
+import commonErrorObj from './common.response.error.code'
+
 export default (res, err) => {
-	let errObj = {
-		msg: typeof err === 'string' ? err : 'error'
-	}
-	res.status(400).send(errObj)
+	let errCode = typeof err === 'string' ? err : 'server_error',
+		errObj = commonErrorObj[errCode] && typeof commonErrorObj[errCode] === 'object' ? 
+					commonErrorObj[errCode] : commonErrorObj['server_error']
+	res.status(errObj.code).send(errObj.err)
 }

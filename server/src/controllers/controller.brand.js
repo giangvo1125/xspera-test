@@ -7,7 +7,7 @@ const createBrand = (req, res, next) => {
 	.then(result => {
 		res.status(200).send({msg: 'create successfully'})
 	}, err => {
-		common.errorRes(res, err)
+		next(err)
 	})
 }
 

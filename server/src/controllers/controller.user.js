@@ -8,7 +8,7 @@ const getUser = (req, res, next) => {
 	.then(result => {
 		res.status(200).send({uid: result.uuid})
 	}, err => {
-		common.errorRes(res, err)
+		next(err)
 	})
 }
 

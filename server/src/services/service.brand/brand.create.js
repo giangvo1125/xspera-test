@@ -16,7 +16,7 @@ export default (body = {}, transaction) => new Promise((resolve, reject) => {
 			})
 			.then(brand => {
 				if(brand) {
-					throw 'brand existed'
+					throw 'brand_existed'
 				}
 				else {
 					return model.brands.create(body, options)
@@ -32,7 +32,7 @@ export default (body = {}, transaction) => new Promise((resolve, reject) => {
 		}
 	}
 	else {
-		reject('not found params')
+		reject('not_found_params')
 	}
 	
 })

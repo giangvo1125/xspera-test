@@ -10,15 +10,15 @@ export default (condition = {}) => new Promise((resolve, reject) => {
 				resolve(brand)
 			}
 			else {
-				reject('not found brand')
+				reject('not_found_brand')
 			}
 			
 		}, err => {
-			reject(err)
+			reject('server_error')
 		})
 	}
 	else {
-		reject('not found id')
+		reject('not_found_id')
 	}
 	
 })
