@@ -56,11 +56,11 @@ export const onSaveReview = () => (dispatch, getState) => new Promise((resolve, 
 	let data = selectors.reviewDataSelector(getState()).toJS(),
 		valid = true
 
-	for(let key in data) {
-		if(['userId', 'rating'].indexOf(key) == -1 && !data[key]) {
-			valid = false
-		}
-	}
+	// for(let key in data) {
+	// 	if(['userId', 'rating'].indexOf(key) == -1 && !data[key]) {
+	// 		valid = false
+	// 	}
+	// }
 	if(!valid) {
 		reject('required')
 	}

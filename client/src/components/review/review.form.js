@@ -26,6 +26,7 @@ class ReviewFormComponent extends Component {
 		            valid: true, 
 		            regex: Helper.regexEmail, 
 		            err_msg: 'email_err', 
+		            required: true, 
 		        }, 
 		        comment: {
 		            readonly: false, 
@@ -33,7 +34,7 @@ class ReviewFormComponent extends Component {
 		            placeholder: 'comment_placeholder', 
 		            valid: true, 
 		            err_msg: 'comment_err', 
-		            regex: /^[A-Za-z0-9\s]+$/, 
+		            regex: Helper.regexComment, 
 		        }, 
         	}
         }
@@ -68,25 +69,40 @@ class ReviewFormComponent extends Component {
 	}
 	onSave() {
 		let {fields} = this.state, 
-			{msgLanguage} = this.props, 
+			{msgLanguage, data} = this.props, 
+			required = true, 
 			valid = true
 		for(let key in fields) {
-			if(!fields[key].valid) {
-				valid = false
+			if(fields[key].required && (!data.get(key) || data.get(key) == '')) {
+				required = false
+				fields[key].valid = false
 			}
 		}
-		if(!valid) {
+		if(!required) {
 			toastr.error(msgLanguage.get('required'))
+			this.setState({fields})
 		}
 		else {
-			this.props.onSaveReview()
-			.then(() => {
-				toastr.success(msgLanguage.get('create_success'))
-				this.context.router.push('/')
-			}, err => {
-				let message = ['error'].indexOf(err) == -1 ? err : msgLanguage.get(err)
-				toastr.error(message)
-			})
+			for(let key in fields) {
+				if(!fields[key].valid) {
+					valid = false
+					fields[key].valid = false
+				}
+			}
+			if(!valid) {
+				toastr.error(msgLanguage.get('required'))
+				this.setState({fields})
+			}
+			else {
+				this.props.onSaveReview()
+				.then(() => {
+					toastr.success(msgLanguage.get('create_success'))
+					this.context.router.push('/')
+				}, err => {
+					let message = ['error'].indexOf(err) == -1 ? err : msgLanguage.get(err)
+					toastr.error(message)
+				})
+			}
 		}
 	}
 	render() {
@@ -107,6 +123,7 @@ class ReviewFormComponent extends Component {
 					onChange={this.onChangeValue.bind(this)} 
 					valid={field.valid} 
 					err_msg={msgLanguage.get(field.err_msg)}
+					required={field.required}
 				/>
 			)
 		}

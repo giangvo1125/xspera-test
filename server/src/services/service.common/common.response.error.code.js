@@ -90,4 +90,11 @@ export default {
 			msg: 'Not found user type', 
 		}, 
 	}, 
+	require_params_review: {
+		code: 500, 
+		err: {
+			err_code: 'REQUIRE_PARAMS_REVIEW', 
+			msg: 'Require params review', 
+		}, 
+	}
 }

@@ -17,7 +17,8 @@ class InputComponent extends Component {
 
 	}
 	render() {
-		let {label, valid, placeholder, readonly, value, keyProps, err_msg} = this.props
+		let {label, valid, placeholder, readonly, value, keyProps, err_msg, required} = this.props
+		if(!required) required = false
 
 		return (
 			<div className={`form-group ${valid == false ? 'has-error' : ''}`}>
@@ -33,7 +34,9 @@ class InputComponent extends Component {
 				</div>
 				{
 					valid == false ? 
-					<div className="help-block">{err_msg}</div> : 
+					<div className="help-block">
+						{!required || value.length > 0 ? err_msg : 'required'}
+					</div> : 
 					''
 				}
 			</div>

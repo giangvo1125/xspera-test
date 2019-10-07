@@ -1,6 +1,6 @@
 export default ({rating, comment}) => new Promise((resolve, reject) => {
 	if(!rating || !comment) {
-		reject('require params review')
+		reject('require_params_review')
 	}
 	else {
 		switch(true) {
